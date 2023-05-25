@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Juego de arrastrar y soltar - b y b</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            height: auto;
+        }
+
+        .columna {
+            width: 150px;
+            height: 250px;
+            border: 2px solid gray;
+            padding: 10px;
+            text-align: center;
+            background-color: lightgray;
+        }
+
+        .animal {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Juego de arrastrar y soltar - b y d</h1>
+
+    <div id="contenedor">
+        <div class="columna" id="columnaB" ondrop="soltar(event, 'b')" ondragover="permitirSoltar(event)">
+            <h2>Palabras con b</h2>
+        </div>
+        <div class="columna" id="columnaD" ondrop="soltar(event, 'd')" ondragover="permitirSoltar(event)">
+            <h2>Palabras con d</h2>
+        </div>
+    </div>
+    <br>
+<center>
+    <img class="animal" src="ballena.png" alt="animal" draggable="true" ondragstart="arrastrar(event, 'b')">
+    <img class="animal" src="delfin.png" alt="animal" draggable="true" ondragstart="arrastrar(event, 'd')">
+    <img class="animal" src="buho.jpeg" alt="animal" draggable="true" ondragstart="arrastrar(event, 'b')">
+    <img class="animal" src="dinosaurio.jpeg" alt="animal" draggable="true" ondragstart="arrastrar(event, 'd')">
+    <img class="animal" src="burro.jpeg" alt="animal" draggable="true" ondragstart="arrastrar(event, 'b')">
+    <img class="animal" src="dodo.jpeg" alt="animal" draggable="true" ondragstart="arrastrar(event, 'd')">
+</center>
+    <script>
+        function arrastrar(event, letra) {
+            event.dataTransfer.setData('letra', letra);
+        }
+
+        function permitirSoltar(event) {
+            event.preventDefault();
+        }
+
+        function soltar(event, letra) {
+            event.preventDefault();
+            var letraArrastrada = event.dataTransfer.getData('letra');
+            var columnaDestino = document.getElementById('columna' + letra.toUpperCase());
+            
+            if (letraArrastrada === letra) {
+                columnaDestino.style.backgroundColor = 'green';
+                alert('¡Correcto!');
+            } else {
+                columnaDestino.style.backgroundColor = 'red';
+                alert('Incorrecto. Inténtalo de nuevo.');
+            }
+        }
+    </script>
+</body>
+</html>
